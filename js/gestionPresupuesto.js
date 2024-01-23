@@ -75,7 +75,7 @@ function calcularTotalGastos() {
     return suma;
 }
 function mostrargastosTotales() {
-    return `Tus gastos totales son ` + Math.round(calcularTotalGastos() * 100) / 100 + `€`;
+    return `Tus gastos totales son de` + Math.round(calcularTotalGastos() * 100) / 100 + `€`;
 }
 function calcularBalance() {
     let balance = presupuesto - calcularTotalGastos();

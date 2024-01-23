@@ -19,9 +19,9 @@ gestionPresupuesto.anyadirGasto(gasto4);
 gestionPresupuesto.anyadirGasto(gasto5);
 gestionPresupuesto.anyadirGasto(gasto6);
 //*Mostrar los gastos totales en div#gastos-totales (funciones calcularTotalGastos y mostrarDatoEnId)
-gestionPresupuestosWeb.mostrarDatoEnId(gestionPresupuesto.calcularTotalGastos(), "gastos-totales");
+gestionPresupuestosWeb.mostrarDatoEnId(gestionPresupuesto.mostrargastosTotales(), "gastos-totales");
 //*Mostrar el balance total en div#balance-total (funciones calcularBalance y mostrarDatoEnId)
-gestionPresupuestosWeb.mostrarDatoEnId(gestionPresupuesto.calcularBalance(), "balance-total");
+gestionPresupuestosWeb.mostrarDatoEnId(gestionPresupuesto.mostrarBalance(), "balance-total");
 //*Mostrar el listado completo de gastos en div#listado-gastos-completo (funciones listarGastos y mostrarGastoWeb)
 let gastos = gestionPresupuesto.listarGastos();
 for (let gasto of gastos) {
