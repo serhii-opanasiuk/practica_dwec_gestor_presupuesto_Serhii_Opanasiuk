@@ -372,8 +372,9 @@ BorrarEtiquetasHandle.prototype.handleEvent = function () {
     let tituloEtiqueta = this.etiqueta;
     let respuestaUsuario = confirm("¿Usted está seguro que quiere borrar la etiqueta?\n" + tituloEtiqueta);
     if (respuestaUsuario) {
+
         this.gasto.borrarEtiquetas(this.etiqueta);
-        peticionEditarGastoAPI(this.gasto.gastoId, this.gasto); //!Actualizado por API
+        peticionEditarGastoAPI(this.gasto); //!Actualizado por API
     }
         // Llamar a la función repintar para actualizar la lista de gastos
         repintar();  
@@ -594,7 +595,6 @@ function filtrarGastosWeb(event) {
     let gastoValorMinimo = document.getElementById("formulario-filtrado-valor-minimo").value;
     let gastoValorMaximo = document.getElementById("formulario-filtrado-valor-maximo").value;
     let gastoFechaDesde = document.getElementById("formulario-filtrado-fecha-desde").value;
-    console.log(gastoFechaDesde);
     let gastoFechaHasta = document.getElementById("formulario-filtrado-fecha-hasta").value;
     let gastoEtiquetasTiene = document.getElementById("formulario-filtrado-etiquetas-tiene").value;
     let gastoEtiquetas = [];
@@ -677,7 +677,6 @@ async function cargarGastosApi() {
     //console.log(gastosCargados);
     //Actualizando la lista de gastos
     gestionPresupuesto.cargarGastos(gastosCargados);
-    console.log(gestionPresupuesto.listarGastos);
     //Mostramos los datos en el archivo .html
     repintar();
 }
@@ -726,8 +725,9 @@ function crearGastoAPI() {
 function botonEnviarAPIactualizar() {
     //recogiendo los datos del formulario
     let gastoRecogido = obtenerGastoFormulario();
+    gastoRecogido.gastoId = this.gasto.gastoId;
     //actualizando la base de datos de API
-    peticionEditarGastoAPI(this.gasto.gastoId, gastoRecogido);
+    peticionEditarGastoAPI(gastoRecogido);
     //eliminando el formulario
     formulario.remove();
     // desbloqueamos el botón "Añadir gasto con formulario"
@@ -795,12 +795,12 @@ async function peticionNuevoGastoAPI(gasto) {
     }
 }
 //Función asíncrona: accepta el gasto y lo actualiza en la API
-async function peticionEditarGastoAPI(gastoId, gasto) {
+async function peticionEditarGastoAPI(gasto) {
     let gastoJSON = JSON.stringify(gasto);
     //Creando la petición
     let url = "https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/";
     let usuario = document.getElementById("nombre_usuario").value;
-    url += `${usuario}/${gastoId}`;
+    url += `${usuario}/${gasto.gastoId}`;
     try {
         // Enviando la petición PUT
         let response = await fetch(url, {
